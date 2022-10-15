@@ -1,108 +1,156 @@
-﻿namespace Lab6
+﻿using InteractiveConsoleMenu;
+
+namespace Lab6
 {
-    class Lab
+    public class Lab
     {
-        public static void SolveFirstTask()
-        {
-            double[,] array = new double[0, 0];
-
-            while (true)
-            {
-                int rows = array.GetUpperBound(0) + 1;
-                int columns = (rows != 0) ? array.Length / rows : 0;
-                int size = rows * columns;
-
-                Console.WriteLine($"\nРабота с двумерным массивом [{rows} x {columns}] (текущий размер — {size}):");
-                Console.WriteLine("0) выход в меню лабораторной работы;");
-                Console.WriteLine("1) изменить размер массива;");
-                Console.WriteLine("2) заполнить массив целиком;");
-                Console.WriteLine("3) напечатать массив целиком;");
-                Console.WriteLine("4) удалить из массива первую строку, в которой есть хотя бы один ноль.");
-                Console.Write("Для продолжения введите номер опции: ");
-
-                int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 4);
-
-                switch (menuOptionNumber)
-                {
-                    case 0:
-                        return;
-                    case 1:
-                        ArrayHandler.TwoDimensional.Resize(ref array);
-                        break;
-                    case 2:
-                        ArrayHandler.TwoDimensional.Fill(array);
-                        break;
-                    case 3:
-                        ArrayHandler.TwoDimensional.ConsoleOutput(array);
-                        break;
-                    case 4:
-                        ArrayHandler.TwoDimensional.DeleteFirstRowThatHasLeastOneZero(ref array);
-                        break;
-                }
-            }
-        }
-
-        public static void SolveSecondTask()
-        {
-            string? data = "";
-            string pattern = @"(^|(?<=[\s,;:.!?])+)[A-Za-z]+($|(?=[\s,;:.!?]+))";
-          
-            while (true)
-            {
-                Console.WriteLine($"\nРабота со строкой: {data}");
-                Console.WriteLine("0) выход в меню лабораторной работы;");
-                Console.WriteLine("1) ввести новую строку с клавиатуры;");
-                Console.WriteLine("2) установить строку-пример;");
-                Console.WriteLine($"3) оставить в строке подстроки, соответствующие паттерну {pattern};");
-                Console.WriteLine($"4) инвертировать все чётные подстроки, соответствующие паттерну {pattern}.");
-                Console.Write("Для продолжения введите номер опции: ");
-
-                int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 4);
-
-                switch (menuOptionNumber)
-                {
-                    case 0:
-                        return;
-                    case 1:
-                        data = UserInputHandler.String.Get();
-                        break;
-                    case 2:
-                        data = "startword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword.endword\nstartword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword!endword\nstartword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword?endword";
-                        break;
-                    case 3:
-                        data = StringHandler.RegexHandler.GetMatches(data, pattern);
-                        break;
-                    case 4:
-                        data = StringHandler.SpecificTaskHandler.ReverseEverySecondMatch(data, pattern);
-                        break;
-                }
-            }
-        }
+        public static Menu menu = new(
+            new MenuCategory("Главное меню",
+                             "Опции лабораторной работы №6", new MenuItem[]{
+                new MenuBack("Завершить работу программы"),
+                new MenuCategory("Выполнить первое задание",
+                                $"Работа с двумерным массивом [{SolveFirstTask.Rows} x {SolveFirstTask.Columns}] (текущий размер — {SolveFirstTask.Size}):", new MenuItem[]{
+                    new MenuBack("Вернуться к опциям лабораторной работы №6"),
+                    new MenuAction("Изменить размер массива", SolveFirstTask.FirstAction),
+                    new MenuAction("Заполнить массив целиком", SolveFirstTask.SecondAction),
+                    new MenuAction("Напечатать массив целиком", SolveFirstTask.ThirdAction),
+                    new MenuAction("Удалить из массива первую строку, в которой есть хотя бы один ноль.", SolveFirstTask.FourthAction)}),
+                new MenuCategory("Выполнить второе задание",
+                                 $"Работа со строкой: {SolveSecondTask.Data}\nПаттерн: {SolveSecondTask.Pattern}", new MenuItem[]{
+                    new MenuBack("Вернуться к опциям лабораторной работы №6"),
+                    new MenuAction("Ввести новую строку с клавиатуры", SolveSecondTask.FirstAction),
+                    new MenuAction("Установить строку-пример", SolveSecondTask.SecondAction),
+                    new MenuAction("Оставить в строке подстроки, соответствующие паттерну", SolveSecondTask.ThirdAction),
+                    new MenuAction("Инвертировать все чётные подстроки, соответствующие паттерну", SolveSecondTask.FourthAction)}),
+        }));
+        public static int menuStartIndex = 0;
+        public static int downWorkAreaIndex = menuStartIndex;
 
         public static void ShowTaskMenu()
         {
-            while (true)
+            menu.Run();
+        }
+
+        private class SolveFirstTask
+        {
+            public static int Rows    { get; private set; }
+            public static int Columns { get; private set; }
+            public static int Size    { get; private set; }
+            public static double[,] s_array = new double[0, 0];
+            
+            private static void UpdateData()
             {
-                Console.WriteLine("\nОпции лабораторной работы №6:");
-                Console.WriteLine("0) завершение работы программы;");
-                Console.WriteLine("1) первое задание;");
-                Console.WriteLine("2) второе задание.");
-                Console.Write("Для продолжения введите номер опции: ");
+                Rows    = s_array.GetUpperBound(0) + 1;
+                Columns = (Rows != 0) ? s_array.Length / Rows : 0;
+                Size    = Rows * Columns;
+                menu.currentCategory.Title = $"Работа с двумерным массивом [{SolveFirstTask.Rows} x {SolveFirstTask.Columns}] (текущий размер — {SolveFirstTask.Size}):              ";
+            }
 
-                int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 2);
+            public static void FirstAction()
+            {
+                if (downWorkAreaIndex != menuStartIndex)
+                    ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
 
-                switch (menuOptionNumber)
+                ArrayHandler.TwoDimensional.Resize(ref s_array);
+                downWorkAreaIndex = Console.CursorTop;
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+                UpdateData();
+            }
+
+            public static void SecondAction()
+            {
+                if (downWorkAreaIndex != menuStartIndex)
+                    ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+                ArrayHandler.TwoDimensional.Fill(s_array);
+                downWorkAreaIndex = Console.CursorTop;
+                ThirdAction();
+            }
+
+            public static void ThirdAction()
+            {
+                if (downWorkAreaIndex != menuStartIndex)
+                    ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+                ArrayHandler.TwoDimensional.ConsoleOutput(s_array);
+                downWorkAreaIndex = Console.CursorTop;
+            }
+
+            public static void FourthAction()
+            {
+                if (downWorkAreaIndex != menuStartIndex)
+                    ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+                ArrayHandler.TwoDimensional.DeleteFirstRowThatHasLeastOneZero(ref s_array);
+                downWorkAreaIndex = Console.CursorTop;
+
+                UpdateData();
+            }
+        }
+
+        class SolveSecondTask
+        {
+            private static string data = "";
+            private static string pattern = @"(^|(?<=[\s,;:.!?])+)[A-Za-z]+($|(?=[\s,;:.!?]+))";
+
+            public static string Data
+            {
+                get
                 {
-                    case 0:
-                        return;
-                    case 1:
-                        SolveFirstTask();
-                        break;
-                    case 2:
-                        SolveSecondTask();
-                        break;
+                    return data;
+                }
+                private set
+                {
+                    data = value;
                 }
             }
+            public static string Pattern
+            {
+                get
+                {
+                    return pattern;
+                }
+                private set
+                {
+                    pattern = value;
+                }
+            }
+
+            private static void UpdateMenu()
+            {
+                menu.currentCategory.Title = $"Работа со строкой: {SolveSecondTask.Data}\nПаттерн: {SolveSecondTask.Pattern}";
+                Console.Clear();
+            }
+
+            public static void FirstAction()
+            {
+                string? temp = UserInputHandler.String.Get();
+
+                if (temp is null)
+                    return;
+                
+                Data = temp;
+                UpdateMenu();
+            }
+
+            public static void SecondAction()
+            {
+                Data = "startword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword.endword\nstartword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword!endword\nstartword first    second,third;fourth:not#word not1word: fifth,, ; sixth; preendword?endword";
+                UpdateMenu();
+            }
+
+            public static void ThirdAction()
+            {
+                Data = StringHandler.RegexHandler.GetMatches(Data, Pattern);
+                UpdateMenu();
+            }
+           
+            public static void FourthAction()
+            {
+                Data = StringHandler.SpecificTaskHandler.ReverseEverySecondMatch(Data, Pattern);
+                UpdateMenu();
+            }           
         }
     }
 }

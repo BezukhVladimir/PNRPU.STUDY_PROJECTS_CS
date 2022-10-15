@@ -1,4 +1,6 @@
-﻿using UserInputHandler;
+﻿using InteractiveConsoleMenu;
+using System;
+using UserInputHandler;
 
 namespace ArrayHandler;
 
@@ -236,7 +238,7 @@ class TwoDimensional
         int rows = array.GetUpperBound(0) + 1;
         int columns = (rows != 0) ? array.Length / rows : 0;
         int size = rows * columns;
-        
+
         Console.WriteLine($"\nТекущий размер массива: {size}");
         Console.WriteLine($"Массив состоит из {rows} строк и {columns} столбцов.");
 
@@ -397,8 +399,6 @@ class TwoDimensional
 
         int columns = array.Length / rows;
 
-        Console.WriteLine("\nИдёт поиск первой строки, в которой есть хотя бы один ноль.");
-
         double eps = 1e-10;
         bool rowIsFound = false;
         int indexFirstRowThatHasLeastOneZero = 0;
@@ -435,10 +435,10 @@ class TwoDimensional
             }
 
             array = newArray;
-            Console.WriteLine("Первая строка, в которой был хотя бы один ноль, удалена.");
+            Console.WriteLine("\nПервая строка, в которой был хотя бы один ноль, удалена.");
         }
         else
-            Console.WriteLine("Строка, содержащая хотя бы один элемент 0, не найдена.");
+            Console.WriteLine("\nСтрока, содержащая хотя бы один элемент 0, не найдена.");
     }
 }
 

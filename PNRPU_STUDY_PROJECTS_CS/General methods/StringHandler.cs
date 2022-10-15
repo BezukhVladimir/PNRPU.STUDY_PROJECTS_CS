@@ -5,11 +5,8 @@ namespace StringHandler;
 
 class RegexHandler
 {
-    public static string? GetMatches(string? data, string pattern)
+    public static string GetMatches(string data, string pattern)
     {
-        if (data is null)
-            return null;
-
         var rgx = new Regex(pattern);
         var sb  = new StringBuilder("");
 
@@ -25,11 +22,8 @@ class RegexHandler
 
 class SpecificTaskHandler
 {
-    public static string? ReverseEverySecondMatch(string? data, string pattern)
-    {
-        if (data is null)
-            return null;
-      
+    public static string ReverseEverySecondMatch(string data, string pattern)
+    {      
         var rgx = new Regex(pattern);
         var sb  = new StringBuilder("");
 

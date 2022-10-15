@@ -133,7 +133,7 @@ class String
 {
     public static string? Get()
     {
-        Console.Write("Введите строку: ");
+        Console.Write("\nВведите строку: ");
         return Console.ReadLine();
     }
 
