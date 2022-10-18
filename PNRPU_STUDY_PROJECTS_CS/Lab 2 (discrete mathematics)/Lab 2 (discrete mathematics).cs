@@ -1,54 +1,75 @@
-﻿using System.ComponentModel;
-using System.Net.NetworkInformation;
-using System.Net;
+﻿using InteractiveConsoleMenu;
 using System;
 
 namespace Lab2_DiscreteMathematics
 {
-    class Lab
+    public class Lab
     {
-        // relations properties
-        static bool reflexive   = false,
-                    irreflexive = false;
-
-        static bool symmetric,
-                    antisymmetric,
-                    asymmetric;
-
-        static bool transitive;
-
-        static bool connected;
+        private static DiscreteMathematics.Matrix relationsMatrix = new();
+        private static Menu menu = new(
+                new MenuCategory(
+                    "Главное меню",
+                    "Опции лабораторной работы №2", new MenuItem[]{
+                    new MenuBack("Завершить работу программы"),
+                    new MenuAction("Изменить размер матрицы", FirstAction),
+                    new MenuAction("Заполнить матрицу целиком", SecondAction),
+                    new MenuAction("Напечатать матрицу целиком", ThirdAction),
+                    new MenuAction("Напечатать свойства матрицы", FourthAction),
+                    new MenuAction("Напечатать свойства отношений", FifthAction)}));
+        private static int menuStartIndex = 0;
+        private static int downWorkAreaIndex = menuStartIndex;
+        private static string textFilePath = "D:\\C#\\PNRPU_STUDY_PROJECTS_CS\\PNRPU_STUDY_PROJECTS_CS\\Lab 2 (discrete mathematics)\\relationsMatrix.txt";
 
         public static void ShowTaskMenu()
         {
-            int[,] matrix = new int[5, 5];
-            ArrayHandler.TwoDimensional.FillRandom(matrix, 0, 2);
-            ArrayHandler.TwoDimensional.ConsoleOutput(matrix);
-            CheckReflexivity(ref matrix);
+            menu.Run();
         }
 
-        private static void CheckReflexivity(ref int[,] relationMatrix)
+        public static void FirstAction()
         {
-            int rankOfMatrix = relationMatrix.GetLength(0);
-            int sumOfvaluesOnMainDiagonal = 0;
+            if (downWorkAreaIndex != menuStartIndex)
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
 
-            for (int i = 0, j = 0; i < rankOfMatrix; ++i, ++j)
-                sumOfvaluesOnMainDiagonal += relationMatrix[i, j];
-
-            if (sumOfvaluesOnMainDiagonal == 0)
-            {
-                Console.WriteLine("антирефлексивность");
-                reflexive   = false;
-                irreflexive = true;
-            }
-
-            if (sumOfvaluesOnMainDiagonal == rankOfMatrix)
-            {
-                Console.WriteLine("рефлексивность");
-                reflexive   = true;
-                irreflexive = false;
-            }
+            relationsMatrix.Resize();
+            downWorkAreaIndex = Console.CursorTop;
+            ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
         }
 
+        public static void SecondAction()
+        {
+            if (downWorkAreaIndex != menuStartIndex)
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+            relationsMatrix.Fill(textFilePath);
+            downWorkAreaIndex = Console.CursorTop;
+            ThirdAction();
+        }
+
+        public static void ThirdAction()
+        {
+            if (downWorkAreaIndex != menuStartIndex)
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+            relationsMatrix.Show();
+            downWorkAreaIndex = Console.CursorTop;
+        }
+
+        public static void FourthAction()
+        {
+            if (downWorkAreaIndex != menuStartIndex)
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+            relationsMatrix.ShowMatrixProperties();
+            downWorkAreaIndex = Console.CursorTop;
+        }
+
+        public static void FifthAction()
+        {
+            if (downWorkAreaIndex != menuStartIndex)
+                ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+            relationsMatrix.ShowRelationsProperties();
+            downWorkAreaIndex = Console.CursorTop;
+        }
     }
 }

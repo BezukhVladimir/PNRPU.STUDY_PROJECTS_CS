@@ -1,5 +1,7 @@
 ﻿using InteractiveConsoleMenu;
 using System;
+using System.Diagnostics.Metrics;
+using System.IO;
 using UserInputHandler;
 
 namespace ArrayHandler;
@@ -264,15 +266,16 @@ class TwoDimensional
     }
 
     // double
-    public static void Fill(double[,] array)
+    public static void Fill(double[,] array, string textFilePath = "default.txt")
     {
         Console.WriteLine("\nСпособы заполнения двумерного массива:");
         Console.WriteLine("0) отменить заполнение массива;");
         Console.WriteLine("1) заполнить вручную с клавиатуры;");
-        Console.WriteLine("2) сгенерировать случайные значения.");
+        Console.WriteLine("2) сгенерировать случайные значения;");
+        Console.WriteLine("3) считать значения из текстового файла.");
         Console.Write("Для продолжения введите номер опции: ");
 
-        int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 2);
+        int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 3);
 
         switch (menuOptionNumber)
         {
@@ -286,6 +289,37 @@ class TwoDimensional
                 UserInputHandler.Number.GetRange(out from, out to);
                 FillRandom(array, from, to);
                 break;
+            case 3:
+                TextFileInput(array, textFilePath);
+                break;
+        }
+    }
+
+    public static void TextFileInput(double[,] array, string textFilePath = "default.txt")
+    {
+        int rows = array.GetUpperBound(0) + 1;
+        int columns = (rows != 0) ? array.Length / rows : 0;
+        int size = rows * columns;
+
+        using (StreamReader sr = new(textFilePath, System.Text.Encoding.Default))
+        {
+            for (int i = 0; i < rows; ++i)
+            {
+                if (sr.Peek() < 0)
+                    return;
+
+                string numbers = sr.ReadLine();
+
+                int j = 0;
+                foreach (var number in numbers.Split())
+                {
+                    if (j >= columns)
+                        break;
+                    
+                    double.TryParse(number, out array[i, j]);
+                    j++;
+                }
+            }
         }
     }
 
@@ -318,7 +352,7 @@ class TwoDimensional
         if (from > to)
             throw new Exception($"Error: range is empty [{from}; {to}), from > to");
 
-        int rows = array.GetUpperBound(0) + 1;
+        int rows    = array.GetUpperBound(0) + 1;
         int columns = (rows != 0) ? array.Length / rows : 0;
         int size = rows * columns;
         var rand = new Random();

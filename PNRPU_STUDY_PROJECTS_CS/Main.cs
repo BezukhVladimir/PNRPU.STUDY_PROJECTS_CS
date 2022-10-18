@@ -1,7 +1,5 @@
-﻿//using Lab2_DiscreteMathematics; // TODO: в процессе разработки
-//using Lab3;
-//using Lab5;
-using Lab6;
+﻿//using Lab2_DiscreteMathematics;
+//using Lab6;
 
 namespace EntryPoint
 {
@@ -9,7 +7,7 @@ namespace EntryPoint
     {
         static void Main(string[] args)
         {
-            Lab.ShowTaskMenu();
+            //Lab.ShowTaskMenu();
             Console.WriteLine("Программа завершена");
         }
     }
