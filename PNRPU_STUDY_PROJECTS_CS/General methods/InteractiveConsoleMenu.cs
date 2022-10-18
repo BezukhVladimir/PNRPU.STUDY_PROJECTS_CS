@@ -123,6 +123,5 @@ public class Menu
     {
         Console.WriteLine("\nДля навигации по меню используйте клавиши управления курсором «вверх» и «вниз».");
         Console.WriteLine("Для активации выбранной опции нажмите клавишу «ввод» или «пробел».");
-        Console.WriteLine("Developed by Bezukh");
     }
 }
