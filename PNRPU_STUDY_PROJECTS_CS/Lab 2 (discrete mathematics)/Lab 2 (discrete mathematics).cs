@@ -68,7 +68,7 @@ namespace Lab2_DiscreteMathematics
             if (downWorkAreaIndex != menuStartIndex)
                 ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
 
-            relationsMatrix.ShowRelationsProperties();
+            relationsMatrix.ShowRelationshipsProperties();
             downWorkAreaIndex = Console.CursorTop;
         }
     }

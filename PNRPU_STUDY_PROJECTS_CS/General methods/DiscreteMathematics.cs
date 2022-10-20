@@ -1,4 +1,6 @@
-﻿namespace DiscreteMathematics;
+﻿using SpecificDataStructures;
+
+namespace DiscreteMathematics;
 
 public class Matrix
 {
@@ -10,152 +12,18 @@ public class Matrix
 
 
     // matrix properties
-    private bool isSquareMatrix = false,
-                 isBinaryMatrix = false;
-    public  bool IsSquareMatrix
-    {
-        get
-        {
-            if (!haveMatrixSquarenessBeenChecked)
-                CheckSquareness();
+    public Property IsSquareMatrix        { get; private set; }
+    public Property IsBinaryMatrix        { get; private set; }
+    public Property IsRelationshipsMatrix { get; private set; }
 
-            return isSquareMatrix;
-        }
-        private set
-        {
-            isSquareMatrix = value;
-        } 
-    }
-    public  bool IsBinaryMatrix
-    {
-        get
-        {
-            if (!haveMatrixBinarityBeenChecked)
-                CheckBinarity();
-
-            return isBinaryMatrix;
-        }
-        private set
-        {
-            isBinaryMatrix = value;
-        }
-    }
-    private bool haveMatrixSquarenessBeenChecked = false;
-    private bool haveMatrixBinarityBeenChecked   = false;
-
-    // relations properties
-    private bool isReflexive     = false,
-                 isIrreflexive   = false,
-                 isSymmetric     = false,
-                 isAntisymmetric = false,
-                 isAsymmetric    = false,
-                 isTransitive    = false,
-                 isConnected     = false;
-    public  bool IsReflexive
-    {
-        get
-        {
-            if (!haveMatrixReflexiveBeenChecked)
-                CheckReflexivity();
-
-            return isReflexive;
-        }
-        private set
-        {
-            isReflexive = value;
-        }
-    }
-    public  bool IsIrreflexive
-    {
-        get
-        {
-            if (!haveMatrixIrreflexiveBeenChecked)
-                CheckReflexivity();
-
-            return isIrreflexive;
-        }
-        private set
-        {
-            isIrreflexive = value;
-        }
-    }
-    public  bool IsSymmetric
-    {
-        get
-        {
-            if (!haveMatrixSymmetricBeenChecked)
-                CheckSymmetry();
-
-            return isSymmetric;
-        }
-        private set
-        {
-            isSymmetric = value;
-        }
-    }
-    public  bool IsAntisymmetric
-    {
-        get
-        {
-            if (!haveMatrixAntisymmetricBeenChecked)
-                CheckSymmetry();
-
-            return isAntisymmetric;
-        }
-        private set
-        {
-            isAntisymmetric = value;
-        }
-    }
-    public  bool IsAsymmetric
-    {
-        get
-        {
-            if (!haveMatrixAsymmetricBeenChecked)
-                CheckSymmetry();
-
-            return isAsymmetric;
-        }
-        private set
-        {
-            isAsymmetric = value;
-        }
-    }
-    public  bool IsTransitive
-    {
-        get
-        {
-            if (!haveMatrixTransitiveBeenChecked)
-                CheckTransitivity();
-
-            return isTransitive;
-        }
-        private set
-        {
-            isTransitive = value;
-        }
-    }
-    public  bool IsConnected
-    {
-        get
-        {
-            if (!haveMatrixConnectedBeenChecked)
-                CheckConnexity();
-
-            return isConnected;
-        }
-        private set
-        {
-            isConnected = value;
-        }
-    }
-    private bool haveMatrixReflexiveBeenChecked     = false;
-    private bool haveMatrixIrreflexiveBeenChecked   = false;
-    private bool haveMatrixSymmetricBeenChecked     = false;
-    private bool haveMatrixAntisymmetricBeenChecked = false;
-    private bool haveMatrixAsymmetricBeenChecked    = false;
-    private bool haveMatrixTransitiveBeenChecked    = false;
-    private bool haveMatrixConnectedBeenChecked     = false;
+    // relationships properties
+    public Property IsReflexive     { get; private set; }
+    public Property IsIrreflexive   { get; private set; }
+    public Property IsAntisymmetric { get; private set; }
+    public Property IsSymmetric     { get; private set; }
+    public Property IsAsymmetric    { get; private set; }
+    public Property IsTransitive    { get; private set; }
+    public Property IsConnected     { get; private set; }
 
     public Matrix()
     {
@@ -163,34 +31,25 @@ public class Matrix
         Columns = 0;
         Size    = 0;
 
-        IsSquareMatrix = isSquareMatrix;
-        IsBinaryMatrix = isBinaryMatrix;
-
-        IsReflexive     = isReflexive;
-        IsIrreflexive   = isIrreflexive;
-        IsSymmetric     = isSymmetric;
-        IsAntisymmetric = isAntisymmetric;
-        IsAsymmetric    = isAsymmetric;
-        IsTransitive    = isTransitive;
-        IsConnected     = isConnected;    
+        ResetProperties();
     }
 
     public void Resize()
     {
         ArrayHandler.TwoDimensional.Resize(ref matrix);
-        CheckSquareness();
+        UpdateDimensionality();
+        ResetProperties();
     }
 
     public void Fill(string textFilePath = "default.txt") 
     {
         ArrayHandler.TwoDimensional.Fill(matrix, textFilePath);
-        CheckBinarity();
+        ResetProperties();
     }
 
     public void Show()
     {
-        CheckMatrixProperties();
-        int shift = IsBinaryMatrix ? 4 : 20; 
+        int shift = IsBinaryMatrix.Status ? 4 : 20; 
         Console.WriteLine("\nВывод всех элементов матрицы: ");
 
         for (int i = 0; i < Rows; ++i)
@@ -204,23 +63,36 @@ public class Matrix
 
     public void ShowMatrixProperties()
     {
-        CheckMatrixProperties();
         Console.WriteLine("\nСвойства матрицы:");
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "квадратная", '—', IsSquareMatrix);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "бинарная", '—',   IsBinaryMatrix);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "квадратная", '—', IsSquareMatrix.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "бинарная", '—',   IsBinaryMatrix.Status);
     }
 
-    public void ShowRelationsProperties()
+    public void ShowRelationshipsProperties()
     {
-        CheckRelationsProperties();
         Console.WriteLine("\nСвойства отношений:");
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "рефлексивность", '—',     IsReflexive);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "антирефлексивность", '—', IsIrreflexive);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "симметричность", '—',     IsSymmetric);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "антисимметричность", '—', IsAntisymmetric);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "асимметричность", '—',    IsAsymmetric);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "транзитивность", '—',     IsTransitive);
-        Console.WriteLine("{0, -20}\t{1}\t{2}", "связность", '—',          IsConnected);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "рефлексивность", '—',     IsReflexive.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "антирефлексивность", '—', IsIrreflexive.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "симметричность", '—',     IsSymmetric.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "антисимметричность", '—', IsAntisymmetric.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "асимметричность", '—',    IsAsymmetric.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "транзитивность", '—',     IsTransitive.Status);
+        Console.WriteLine("{0, -20}\t{1}\t{2}", "связность", '—',          IsConnected.Status);
+    }
+
+    private void ResetProperties()
+    {
+        IsSquareMatrix        = new(CheckSquareness);
+        IsBinaryMatrix        = new(CheckBinarity);
+        IsRelationshipsMatrix = new(CheckIfMatrixIsRelationshipsMatrix);
+
+        IsReflexive     = new(CheckReflexivity);
+        IsIrreflexive   = new(CheckReflexivity);
+        IsSymmetric     = new(CheckSymmetry);
+        IsAntisymmetric = new(CheckSymmetry);
+        IsAsymmetric    = new(CheckSymmetry);
+        IsTransitive    = new(CheckTransitivity);
+        IsConnected     = new(CheckConnexity);
     }
 
     private void UpdateDimensionality()
@@ -232,16 +104,14 @@ public class Matrix
 
     private void CheckSquareness()
     {
-        UpdateDimensionality();
-        IsSquareMatrix = Rows == Columns;
-        haveMatrixSquarenessBeenChecked = true;
+        IsSquareMatrix.Status = Rows == Columns;
     }
 
     private void CheckBinarity()
     {
         if (Size == 0)
         {
-            IsBinaryMatrix = false;
+            IsBinaryMatrix.Status = false;
             return;
         }
 
@@ -251,50 +121,23 @@ public class Matrix
             {
                 if (matrix[i, j] != 0.0 && matrix[i, j] != 1.0)
                 {
-                    IsBinaryMatrix = false;
+                    IsBinaryMatrix.Status = false;
                     return;
                 }
             }
         }
 
-        IsBinaryMatrix = true;
-        haveMatrixBinarityBeenChecked = true;
+        IsBinaryMatrix.Status = true;
     }
 
-    private void CheckMatrixProperties()
+    private void CheckIfMatrixIsRelationshipsMatrix()
     {
-        if (!haveMatrixSquarenessBeenChecked)
-            CheckSquareness();
-
-        if (!haveMatrixBinarityBeenChecked)
-            CheckBinarity();
-    }
-
-    private void CheckRelationsProperties()
-    {
-        if (!haveMatrixReflexiveBeenChecked)
-            CheckReflexivity();
-        else if (!haveMatrixIrreflexiveBeenChecked)
-            CheckReflexivity();
-
-        if (!haveMatrixSymmetricBeenChecked)
-            CheckSymmetry();
-        else if (!haveMatrixAntisymmetricBeenChecked)
-            CheckSymmetry();
-        else if (!haveMatrixAsymmetricBeenChecked)
-            CheckSymmetry();
-
-        if (!haveMatrixTransitiveBeenChecked)
-            CheckTransitivity();
-
-        if (!haveMatrixConnectedBeenChecked)
-            CheckConnexity();
+        IsRelationshipsMatrix.Status = IsSquareMatrix.Status && IsBinaryMatrix.Status;
     }
 
     private void CheckReflexivity()
     {
-        CheckMatrixProperties();
-        if (!(IsSquareMatrix && IsBinaryMatrix))
+        if (!IsRelationshipsMatrix.Status)
             return;
 
         int rankOfMatrix = Rows;
@@ -302,21 +145,20 @@ public class Matrix
         for (int i = 0, j = 0; i < rankOfMatrix; ++i, ++j)
             sumOfvaluesOnMainDiagonal += matrix[i, j];
 
-        IsReflexive   = sumOfvaluesOnMainDiagonal == rankOfMatrix;
-        IsIrreflexive = sumOfvaluesOnMainDiagonal == 0;
-        haveMatrixReflexiveBeenChecked   = true;
-        haveMatrixIrreflexiveBeenChecked = true;
+        IsReflexive.Status   = sumOfvaluesOnMainDiagonal == rankOfMatrix;
+        IsIrreflexive.Status = sumOfvaluesOnMainDiagonal == 0;
+        IsReflexive.isChecked   = true;
+        IsIrreflexive.isChecked = true;
     }
 
     private void CheckSymmetry()
-   {
-        CheckMatrixProperties();
-        if (!(IsSquareMatrix && IsBinaryMatrix))
+    {
+        if (!IsRelationshipsMatrix.Status)
             return;
 
         int rankOfMatrix = Rows;
-        isSymmetric      = true; // проверяем матрицу до тех пор,
-        isAntisymmetric  = true; // пока свойства сохраняются
+        bool isSymmetric      = true; // проверяем матрицу до тех пор,
+        bool isAntisymmetric  = true; // пока свойства сохраняются
         for (int i = 0; i < rankOfMatrix; ++i)
         {
             for (int j = 0; j < rankOfMatrix; ++j)
@@ -324,33 +166,33 @@ public class Matrix
                 if (i == j)
                     break;
 
-                IsSymmetric     = isSymmetric     && (matrix[i, j] == matrix[j, i]);
-                IsAntisymmetric = isAntisymmetric && ((matrix[i, j] + matrix[j, i]) < 2);
+                isSymmetric     = isSymmetric     && (matrix[i, j] == matrix[j, i]);
+                isAntisymmetric = isAntisymmetric && ((matrix[i, j] + matrix[j, i]) < 2);
 
                 if (!isSymmetric && !isAntisymmetric)
                 {
-                    IsAsymmetric = false;
-                    haveMatrixSymmetricBeenChecked     = true;
-                    haveMatrixAntisymmetricBeenChecked = true;
-                    haveMatrixAsymmetricBeenChecked    = true;
+                    IsSymmetric.Status     = false;
+                    IsAntisymmetric.Status = false;
+                    IsAsymmetric.Status    = false;
+                    IsSymmetric.isChecked     = true;
+                    IsAntisymmetric.isChecked = true;
+                    IsAsymmetric.isChecked    = true;
                     return;
                 }
             }
         }
 
-        if (!haveMatrixIrreflexiveBeenChecked)
-            CheckReflexivity();
-
-        IsAsymmetric = isAntisymmetric && isIrreflexive;
-        haveMatrixSymmetricBeenChecked     = true;
-        haveMatrixAntisymmetricBeenChecked = true;
-        haveMatrixAsymmetricBeenChecked    = true;
+        IsSymmetric.Status     = isSymmetric;
+        IsAntisymmetric.Status = isAntisymmetric;
+        IsAsymmetric.Status    = isAntisymmetric && IsIrreflexive.Status;
+        IsSymmetric.isChecked     = true;
+        IsAntisymmetric.isChecked = true;
+        IsAsymmetric.isChecked    = true; 
     }
 
     private void CheckTransitivity()
     {
-        CheckMatrixProperties();
-        if (!(IsSquareMatrix && IsBinaryMatrix))
+        if (!IsRelationshipsMatrix.Status)
             return;
 
         int rankOfMatrix = Rows;
@@ -374,22 +216,19 @@ public class Matrix
 
                     if (matrix[i, k] == 0)
                     {
-                        IsTransitive = false;
-                        haveMatrixTransitiveBeenChecked = true;
+                        IsTransitive.Status = false;
                         return;
                     }
                 }
             }
         }
 
-        IsTransitive = true;
-        haveMatrixTransitiveBeenChecked = true;
+        IsTransitive.Status = true;
     }
 
     private void CheckConnexity()
     {
-        CheckMatrixProperties();
-        if (!(IsSquareMatrix && IsBinaryMatrix))
+        if (!IsRelationshipsMatrix.Status)
             return;
 
         int rankOfMatrix = Rows;
@@ -402,14 +241,12 @@ public class Matrix
 
                 if ((matrix[i, j] + matrix[j, i]) == 0)
                 {
-                    IsConnected = false;
-                    haveMatrixConnectedBeenChecked = true;
+                    IsConnected.Status = false;
                     return;
                 }
             }
         }
 
-        IsConnected = true;
-        haveMatrixConnectedBeenChecked = true;
+        IsConnected.Status = true;
     }
 }
