@@ -36,6 +36,9 @@ namespace Lab9
             Console.WriteLine($"{first.Rubles} {first.Kopeks}");
             --first;
             Console.WriteLine($"{first.Rubles} {first.Kopeks}");
+            int i_first = (int)first;
+            double d_first = first;
+            Console.WriteLine($"{i_first} {d_first}");
             downWorkAreaIndex = Console.CursorTop;
         }
 

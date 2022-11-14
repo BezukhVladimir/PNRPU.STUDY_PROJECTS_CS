@@ -124,4 +124,7 @@ public class Money
     {
         return money - 1;
     }
+
+    public static explicit operator int(Money money) => money._rubles;
+    public static implicit operator double(Money money) => money._kopeks;
 }
