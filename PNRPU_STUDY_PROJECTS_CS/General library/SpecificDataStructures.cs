@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.Metrics;
+using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace SpecificDataStructures;
 
@@ -42,7 +44,7 @@ public class Money
 
     public int Rubles { get { return _rubles; } private set { _rubles = value; } }
     public int Kopeks { get { return _kopeks; } private set { _kopeks = value; } }
-    static public int NumberCreatedInstancesClass { get { return _numberCreatedInstancesClass; } private set { _numberCreatedInstancesClass = value; }}
+    static public int NumberCreatedInstancesClass { get { return _numberCreatedInstancesClass; } private set { _numberCreatedInstancesClass = value; } }
 
     public Money()
     {
@@ -89,12 +91,37 @@ public class Money
         return money.AddKopeks(kopeks);
     }
 
+    public static Money operator+(Money money, int kopeks)
+    {
+        int result_kopeks = money._kopeks + kopeks;
+        int result_rubles = money._rubles + result_kopeks / 100;
+            result_kopeks %= 100;
+
+        return new Money(result_rubles, result_kopeks);
+    }
+
+    public static Money operator-(Money money, int kopeks)
+    {
+        int result_kopeks = money._rubles * 100 + money._kopeks;
+        result_kopeks -= kopeks; 
+
+        if (result_kopeks < 0)
+            result_kopeks = 0;
+
+        int result_rubles = result_kopeks / 100;
+        result_kopeks %= 100;
+
+        return new Money(result_rubles, result_kopeks);
+    }
+
     public static Money operator++(Money money)
     {
-        // todo: https://t.me/DotNetRuChat/1389473
+        return money + 1;
+        // https://t.me/DotNetRuChat/1389473
     }
 
     public static Money operator--(Money money)
     {
+        return money - 1;
     }
 }

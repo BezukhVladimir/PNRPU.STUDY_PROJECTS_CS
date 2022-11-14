@@ -1,4 +1,6 @@
 ﻿using InteractiveConsoleMenu;
+using SpecificDataStructures;
+using System.Runtime.InteropServices;
 
 namespace Lab9
 {
@@ -25,7 +27,15 @@ namespace Lab9
             if (downWorkAreaIndex != menuStartIndex)
                 ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
             
-            Console.Write("\nfirst task");
+            Console.WriteLine("\nfirst task");
+            Money first = new(2, 30);
+            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
+            first.AddKopeks(69);
+            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
+            ++first;
+            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
+            --first;
+            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
             downWorkAreaIndex = Console.CursorTop;
         }
 
