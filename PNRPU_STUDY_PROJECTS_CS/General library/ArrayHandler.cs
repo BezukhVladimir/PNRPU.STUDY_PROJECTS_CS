@@ -1,10 +1,6 @@
-﻿using InteractiveConsoleMenu;
-using System;
-using System.Diagnostics.Metrics;
-using System.IO;
-using UserInputHandler;
+﻿namespace ArrayHandler;
 
-namespace ArrayHandler;
+using SpecificDataStructures;
 
 class OneDimensional
 {
@@ -114,6 +110,80 @@ class OneDimensional
         Array.Resize(ref array, array.Length - 1);
         Console.WriteLine("Удаление завершено.");
         Console.WriteLine($"Первое отрицательное число {value} находилось на позиции {index + 1}.");
+    }
+
+    // Money
+    public static void Fill(Money[] array)
+    {
+        Console.WriteLine("\nСпособы заполнения одномерного массива:");
+        Console.WriteLine("0) отменить заполнение массива;");
+        Console.WriteLine("1) заполнить вручную с клавиатуры;");
+        Console.WriteLine("2) сгенерировать случайные значения.");
+        Console.Write("Для продолжения введите номер опции: ");
+
+        int menuOptionNumber = UserInputHandler.Integer.GetFromRange(0, 2);
+
+        switch (menuOptionNumber)
+        {
+            case 0:
+                return;
+            case 1:
+                KeyboardInput(array);
+                break;
+            case 2:
+                int from, to;
+                UserInputHandler.Integer.GetRange(out from, out to);
+                if (to != int.MaxValue)
+                    ++to;
+                FillRandom(array, from, to);
+                break;
+        }
+    }
+
+    public static void KeyboardInput(Money[] array)
+    {
+        int size = array.Length;
+
+        Console.WriteLine("\nЗаполнение одномерного массива Money копейками с клавиатуры.");
+        Console.WriteLine($"Нужно ввести {size} целых чисел (количество копеек) в диапазоне [{int.MinValue}; {int.MaxValue}]:");
+        for (int i = 0; i < size; ++i)
+        {
+            Console.Write($"Введите ({i + 1} из {size}):\t");
+            array[i].AddKopeks(UserInputHandler.Integer.Get());
+        }
+    }
+
+    public static void FillRandom(Money[] array, int from = int.MinValue, int to = int.MaxValue)
+    {
+        if (from > to)
+            throw new Exception($"Error: range is empty [{from}; {to}), from > to");
+
+        int size = array.Length;
+        var rand = new Random();
+
+        Console.WriteLine("\nЗаполнение одномерного массива Money случайными целыми числами (количество копеек).");
+        Console.WriteLine($"Будет сгенерировано {size} чисел в диапазоне [{from}; {to - 1}]:");
+        for (int i = 0; i < size; ++i)
+        {
+            array[i].AddKopeks(rand.Next(from, to));
+
+            Console.Write("{0})\t{1, 11}\t", i + 1, array[i]);
+
+            if ((i + 1) % 5 == 0)
+                Console.WriteLine();
+        }
+    }
+
+    public static void ConsoleOutput(Money[] array)
+    {
+        Console.WriteLine("\nВывод всех элементов массива: ");
+        for (int i = 0; i < array.Length; ++i)
+        {
+            Console.Write("{0})\t{1, 11} рублей\t{2, 11} копеек", i + 1, array[i].Rubles, array[i].Kopeks);
+
+            if ((i + 1) % 5 == 0)
+                Console.WriteLine();
+        }
     }
 }
 

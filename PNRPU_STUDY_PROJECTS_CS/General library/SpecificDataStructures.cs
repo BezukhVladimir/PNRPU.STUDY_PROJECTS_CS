@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Metrics;
+﻿using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
@@ -54,10 +55,19 @@ public class Money
         Console.WriteLine("Вызван конструктор по умолчанию");
     }
 
+    public Money(int kopeks)
+    {
+        _rubles = kopeks / 100;
+        _kopeks = kopeks % 100;
+        _numberCreatedInstancesClass++;
+        Console.WriteLine("Вызван конструктор с параметрами");
+
+    }
+
     public Money(int rubles, int kopeks)
     {
-        _rubles = rubles;
-        _kopeks = kopeks;
+        _rubles = rubles + kopeks / 100;
+        _kopeks = kopeks % 100;
         _numberCreatedInstancesClass++;
         Console.WriteLine("Вызван конструктор с параметрами");
     }
@@ -127,4 +137,82 @@ public class Money
 
     public static explicit operator int(Money money) => money._rubles;
     public static implicit operator double(Money money) => money._kopeks;
+}
+
+class MoneyArray
+{
+    private int _defaultSize = 10;
+
+    private Money[] _data;
+    private readonly int _size;
+    static private int _numberCreatedInstancesClass;
+
+    static public int NumberCreatedInstancesClass { get { return _numberCreatedInstancesClass; } private set { _numberCreatedInstancesClass = value; } }
+
+    public MoneyArray()
+    {
+        _size = _defaultSize;
+        _data = new Money[_size];
+
+        for (var i = 0; i < _size; ++i)
+        {
+            _data[i] = new Money();
+        }
+
+        ++_numberCreatedInstancesClass;
+    }
+
+    public MoneyArray(int length)
+    {
+        _size = length;
+        _data = new Money[_size];
+
+        ArrayHandler.OneDimensional.Fill(_data);
+
+        ++_numberCreatedInstancesClass;
+    }
+
+    public MoneyArray(Money[] money)
+    {
+        _size = money.Length;
+        _data = new Money[_size];
+
+        for (var i = 0; i < _size; i++)
+        {
+            _data[i] = new Money(money[i].Rubles, money[i].Kopeks);
+        }
+    }
+
+    public int Length() => _data.Length;
+
+    public void Print()
+    {
+        foreach (var money in _data)
+        {
+            Console.WriteLine($"{money.Rubles} рублей\t{money.Kopeks} копеек");
+        }
+    }
+
+    public Money this[int index]
+    {
+        get
+        {
+            if (index < 0 || index >= _size)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            return _data[index];
+        }
+
+        set
+        {
+            if (index < 0 || index >= _size)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            _data[index] = value;
+        }
+    }
 }
