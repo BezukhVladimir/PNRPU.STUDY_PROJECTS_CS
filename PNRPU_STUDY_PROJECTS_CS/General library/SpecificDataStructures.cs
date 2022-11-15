@@ -52,24 +52,38 @@ public class Money
         _rubles = 0;
         _kopeks = 0;
         _numberCreatedInstancesClass++;
-        Console.WriteLine("Вызван конструктор по умолчанию");
+        //Console.WriteLine("Вызван конструктор по умолчанию");
     }
 
     public Money(int kopeks)
     {
+        if (kopeks <= 0)
+        {
+            _rubles = 0;
+            _kopeks = 0;
+            return;
+        }
+
         _rubles = kopeks / 100;
         _kopeks = kopeks % 100;
         _numberCreatedInstancesClass++;
-        Console.WriteLine("Вызван конструктор с параметрами");
+        //Console.WriteLine("Вызван конструктор с параметром");
 
     }
 
     public Money(int rubles, int kopeks)
     {
+        if (rubles <= 0 || kopeks <= 0)
+        {
+            _rubles = 0;
+            _kopeks = 0;
+            return;
+        }
+
         _rubles = rubles + kopeks / 100;
         _kopeks = kopeks % 100;
         _numberCreatedInstancesClass++;
-        Console.WriteLine("Вызван конструктор с параметрами");
+        //Console.WriteLine("Вызван конструктор с параметрами");
     }
 
     public Money(Money that)
@@ -77,18 +91,21 @@ public class Money
         _rubles = that._rubles;
         _kopeks = that._kopeks;
         _numberCreatedInstancesClass++;
-        Console.WriteLine("Вызван копирующий конструктор");
+        //Console.WriteLine("Вызван копирующий конструктор");
 
     }
 
     static Money()
     {
         _numberCreatedInstancesClass = 0;
-        Console.WriteLine("Вызван статический конструктор");
+        //Console.WriteLine("Вызван статический конструктор");
     }
 
     public Money AddKopeks(int kopeks)
     {
+        if (kopeks <= 0)
+            kopeks = 0;
+
         _kopeks += kopeks;
         _rubles += _kopeks / 100;
         _kopeks %= 100;
@@ -103,6 +120,9 @@ public class Money
 
     public static Money operator+(Money money, int kopeks)
     {
+        if (kopeks < 0)
+            return money - -kopeks;
+
         int result_kopeks = money._kopeks + kopeks;
         int result_rubles = money._rubles + result_kopeks / 100;
             result_kopeks %= 100;
@@ -112,6 +132,9 @@ public class Money
 
     public static Money operator-(Money money, int kopeks)
     {
+        if (kopeks < 0)
+            return money + -kopeks;
+
         int result_kopeks = money._rubles * 100 + money._kopeks;
         result_kopeks -= kopeks; 
 
@@ -177,7 +200,7 @@ class MoneyArray
         _size = money.Length;
         _data = new Money[_size];
 
-        for (var i = 0; i < _size; i++)
+        for (int i = 0; i < _size; i++)
         {
             _data[i] = new Money(money[i].Rubles, money[i].Kopeks);
         }
@@ -214,5 +237,30 @@ class MoneyArray
 
             _data[index] = value;
         }
+    }
+
+    public Money GetMin()
+    {
+        if (_size == 0)
+            return new Money();
+
+        if (_size == 1)
+            return _data[0];
+
+        int min = int.MaxValue;
+        int minIndex = 0;
+
+        for (int i = 0; i < _size; ++i)
+        {
+            int current = _data[i].Rubles * 100 + _data[i].Kopeks;
+
+            if (current < min)
+            {
+                min = current;
+                minIndex = i;
+            }
+        }    
+
+        return _data[minIndex];
     }
 }

@@ -149,7 +149,7 @@ class OneDimensional
         for (int i = 0; i < size; ++i)
         {
             Console.Write($"Введите ({i + 1} из {size}):\t");
-            array[i].AddKopeks(UserInputHandler.Integer.Get());
+            array[i] = new Money(UserInputHandler.Integer.Get());
         }
     }
 
@@ -165,12 +165,9 @@ class OneDimensional
         Console.WriteLine($"Будет сгенерировано {size} чисел в диапазоне [{from}; {to - 1}]:");
         for (int i = 0; i < size; ++i)
         {
-            array[i].AddKopeks(rand.Next(from, to));
+            array[i] = new Money(rand.Next(from, to));
 
-            Console.Write("{0})\t{1, 11}\t", i + 1, array[i]);
-
-            if ((i + 1) % 5 == 0)
-                Console.WriteLine();
+            Console.WriteLine("{0})\t{1, 11} рублей\t{2, 11} копеек", i + 1, array[i].Rubles, array[i].Kopeks);
         }
     }
 
@@ -179,10 +176,7 @@ class OneDimensional
         Console.WriteLine("\nВывод всех элементов массива: ");
         for (int i = 0; i < array.Length; ++i)
         {
-            Console.Write("{0})\t{1, 11} рублей\t{2, 11} копеек", i + 1, array[i].Rubles, array[i].Kopeks);
-
-            if ((i + 1) % 5 == 0)
-                Console.WriteLine();
+            Console.WriteLine("{0})\t{1, 11} рублей\t{2, 11} копеек", i + 1, array[i].Rubles, array[i].Kopeks);
         }
     }
 }

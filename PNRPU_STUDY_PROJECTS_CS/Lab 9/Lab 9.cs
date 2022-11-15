@@ -1,6 +1,8 @@
 ﻿using InteractiveConsoleMenu;
 using SpecificDataStructures;
+using System.Drawing;
 using System.Runtime.InteropServices;
+using UserInputHandler;
 
 namespace Lab9
 {
@@ -26,19 +28,16 @@ namespace Lab9
         {
             if (downWorkAreaIndex != menuStartIndex)
                 ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
+
+            Console.WriteLine("\nДемонстрация для класса Money, часть первая");
+
+            Money m1 = new();
+            Money m2 = new(48, 90);
+
+            Console.WriteLine($"m1: {m1.Rubles} рублей {m1.Kopeks} копеек");
+            Console.WriteLine($"m2: {m2.Rubles} рублей {m2.Kopeks} копеек");
+            Console.WriteLine($"Всего создано объектов класса: {Money.NumberCreatedInstancesClass}");
             
-            Console.WriteLine("\nfirst task");
-            Money first = new(2, 30);
-            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
-            first.AddKopeks(69);
-            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
-            ++first;
-            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
-            --first;
-            Console.WriteLine($"{first.Rubles} {first.Kopeks}");
-            int i_first = (int)first;
-            double d_first = first;
-            Console.WriteLine($"{i_first} {d_first}");
             downWorkAreaIndex = Console.CursorTop;
         }
 
@@ -47,7 +46,26 @@ namespace Lab9
             if (downWorkAreaIndex != menuStartIndex)
                 ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
 
-            Console.Write("\nsecond task");
+            Console.WriteLine("\nДемонстрация для класса Money, часть вторая");
+
+            Money m1 = new(48, 90);
+            Console.WriteLine($"m1: {m1.Rubles} рублей {m1.Kopeks} копеек");
+            m1++;
+            Console.WriteLine($"После m1++: {m1.Rubles} рублей {m1.Kopeks} копеек");
+            --m1;
+            Console.WriteLine($"После --m1: {m1.Rubles} рублей {m1.Kopeks} копеек\n");
+
+            int explicitConversion = (int)m1;
+            Console.WriteLine($"Явное преобразование m1 к int: {explicitConversion}");
+            double implicitConversion = m1;
+            Console.WriteLine($"Неявное преобразование m1 к double: {implicitConversion}\n");
+
+            Console.WriteLine($"m1: {m1.Rubles} рублей {m1.Kopeks} копеек");
+            m1 += 20;
+            Console.WriteLine($"m1 + 20 = {m1.Rubles} рублей {m1.Kopeks} копеек");
+            m1 -= 140;
+            Console.WriteLine($"m1 - 140 = {m1.Rubles} рублей {m1.Kopeks} копеек");
+            
             downWorkAreaIndex = Console.CursorTop;
         }
 
@@ -55,8 +73,18 @@ namespace Lab9
         {
             if (downWorkAreaIndex != menuStartIndex)
                 ConsoleHandler.Cleaner.ClearRowsInRange(menu.downMenuIndex, downWorkAreaIndex);
-            
-            Console.Write("\nthird task");
+
+            Console.WriteLine("\nДемонстрация для класса MoneyArray");
+
+            Console.WriteLine("Создан пустой объект класса MoneyArray");
+            MoneyArray emptyArray = new();
+
+            Console.WriteLine("Создан пустой объект класса MoneyArray, требующий заполнения");
+            MoneyArray nonemptyArray = new(5);
+
+            Money min = nonemptyArray.GetMin();
+            Console.WriteLine($"Среди них минимальный элемент Money: {min.Rubles} рублей {min.Kopeks} копеек");
+            Console.WriteLine($"Всего создано объектов класса: {MoneyArray.NumberCreatedInstancesClass}");
             downWorkAreaIndex = Console.CursorTop;
         }
     }
