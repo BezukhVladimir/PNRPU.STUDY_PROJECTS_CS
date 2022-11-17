@@ -1,9 +1,4 @@
-﻿using System.Data;
-using System.Diagnostics.Metrics;
-using System.Drawing;
-using System.Runtime.CompilerServices;
-
-namespace SpecificDataStructures;
+﻿namespace SpecificDataStructures;
 
 public class Property
 {

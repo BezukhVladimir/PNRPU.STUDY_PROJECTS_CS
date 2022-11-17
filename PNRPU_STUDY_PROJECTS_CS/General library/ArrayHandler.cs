@@ -363,26 +363,23 @@ class TwoDimensional
     {
         int rows = array.GetUpperBound(0) + 1;
         int columns = (rows != 0) ? array.Length / rows : 0;
-        int size = rows * columns;
 
-        using (StreamReader sr = new(textFilePath, System.Text.Encoding.Default))
+        using StreamReader sr = new(textFilePath, System.Text.Encoding.Default);
+        for (int i = 0; i < rows; ++i)
         {
-            for (int i = 0; i < rows; ++i)
+            if (sr.Peek() < 0)
+                return;
+
+            string? numbers = sr.ReadLine();
+
+            int j = 0;
+            foreach (var number in numbers.Split())
             {
-                if (sr.Peek() < 0)
-                    return;
+                if (j >= columns)
+                    break;
 
-                string numbers = sr.ReadLine();
-
-                int j = 0;
-                foreach (var number in numbers.Split())
-                {
-                    if (j >= columns)
-                        break;
-                    
-                    double.TryParse(number, out array[i, j]);
-                    j++;
-                }
+                double.TryParse(number, out array[i, j]);
+                j++;
             }
         }
     }
@@ -651,7 +648,7 @@ class Jagged
         if (rows == 1)
         {
             Console.WriteLine("\nЕдинственная строка массива удалена.");
-            array = new int[0][];
+            array = Array.Empty<int[]>();
             return;
         }
 

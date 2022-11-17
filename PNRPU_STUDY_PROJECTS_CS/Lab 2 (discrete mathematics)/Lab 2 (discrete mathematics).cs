@@ -18,7 +18,7 @@ namespace Lab2_DiscreteMathematics
                     new MenuAction("Напечатать свойства отношений", FifthAction)}));
         private static int menuStartIndex = 0;
         private static int downWorkAreaIndex = menuStartIndex;
-        private static string textFilePath = "D:\\C#\\PNRPU_STUDY_PROJECTS_CS\\PNRPU_STUDY_PROJECTS_CS\\Lab 2 (discrete mathematics)\\relationsMatrix.txt";
+        private static string textFilePath = "..\\..\\..\\Lab 2 (discrete mathematics)\\relationsMatrix.txt";
 
         public static void ShowTaskMenu()
         {
