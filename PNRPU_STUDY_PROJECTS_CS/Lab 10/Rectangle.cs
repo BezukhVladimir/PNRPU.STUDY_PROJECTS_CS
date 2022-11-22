@@ -9,13 +9,18 @@ public class Rectangle : IRandomInit, IComparable
     public double Height { get; private set; }
     public double Area   { get; private set; }
 
-    public Rectangle() => RandomInit();
-
-    public Rectangle(in int width, in int height)
+    public Rectangle()
     {
-        Width = width;
+        Width  = 0;
+        Height = 0;
+        Area   = 0;
+    }
+
+    public Rectangle(in double width, in double height)
+    {
+        Width  = width;
         Height = height;
-        Area = width * height;
+        Area   = width * height;
     }
 
     public void RandomInit()
@@ -24,7 +29,7 @@ public class Rectangle : IRandomInit, IComparable
 
         Width  = random.NextDouble() * 100.0;
         Height = random.NextDouble() * 100.0;
-        Area = Width * Height;
+        Area   = Width * Height;
     }
 
     public int CompareTo(object? obj)

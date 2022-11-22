@@ -1,21 +1,26 @@
-﻿using Staff;
+﻿namespace Order;
+
 using System.Collections;
-using System.Drawing;
-
-namespace Order;
-
 using Figure;
 using Staff;
 
 public class OrderByAge : IComparer
 {
-    public int Compare(object x, object y)
+    public int Compare(object? x, object? y)
     {
         if (x is Rectangle xr)
         {
             if (y is Rectangle yr)
             {
-                return (int)(xr.Area - yr.Area);
+                int diff = (int)(xr.Area - yr.Area);
+                
+                if (diff > 0)
+                    return 1;
+                
+                if (diff < 0)
+                    return -1;
+                
+                return 0;
             }
 
             return -1;
@@ -26,17 +31,18 @@ public class OrderByAge : IComparer
             return 1;
         }
 
-        Person first =  x as Person;
+        Person first  = x as Person;
         Person second = y as Person;
 
         if (first != null && second != null)
         {
             if (first.Age == second.Age)
                 return 0;
-            else if (first.Age < second.Age)
+            
+            if (first.Age < second.Age)
                 return -1;
-            else
-                return 1;
+            
+            return 1;
         }
 
         return -1;
