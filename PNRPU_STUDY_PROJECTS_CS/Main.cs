@@ -1,7 +1,6 @@
-﻿//using Lab2_DiscreteMathematics;
-//using Lab6;
-//using Lab9;
-using Lab10;
+﻿//using Lab9;
+//using Lab10;
+using Lab11;
 
 namespace EntryPoint
 {

@@ -1,4 +1,7 @@
-﻿namespace Staff;
+﻿using System.Diagnostics;
+using System.Xml.Linq;
+
+namespace Staff;
 
 public class Employee : Person
 {
@@ -42,4 +45,13 @@ public class Employee : Person
     public new string GetInfo() =>             $"{nameof(Employee)}: {Name}, {Surname}, {Age}, {Position}";
     public override string GetInfoVirtual() => $"{nameof(Employee)}: {Name}, {Surname}, {Age}, {Position}";
     public override string ToString() => $"{base.ToString()}\tPosition: {Position}";
+
+    // lab 11
+    public Person BasePerson
+    {
+        get
+        {
+            return new Person(Name, Surname, Age);
+        }
+    }
 }

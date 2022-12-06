@@ -212,6 +212,23 @@ namespace Lab10
             result.Append($"Поверхностная копия объекта после изменения:\n{personShallow.GetInfoVirtual()}\n");
             result.Append($"Глубокая копия объекта после изменения:\n{personClone.GetInfoVirtual()}\n");
             result.Append("\nИзменённые атрибуты не содержат ссылок на другие объекты, поэтому оба способа копирования сработали корректно.");
+
+            Rectangle rectangle = new();
+            Rectangle rectangleShallow = (Rectangle)rectangle.ShallowCopy();
+            Rectangle rectangleClone   = (Rectangle)rectangle.Clone();
+
+            result.Append($"\nСравнение способов копирования\nСоздан объект {rectangle.GetType().Name}:\n{rectangle.GetTest()}\n");
+            result.Append($"Поверхностная копия объекта:\n{rectangleShallow.GetTest()}\n");
+            result.Append($"Глубокая копия объекта:\n{rectangleClone.GetTest()}\n");
+
+            result.Append("\nИзменяю поля test.name на \"Shallow\" и \"Clone\" соответственно\n");
+            rectangleShallow.test.ChangeName("Shallow");
+            rectangleClone.test.ChangeName("Clone");
+
+            result.Append($"Изначальный объект:\n{rectangle.GetTest()}\n");
+            result.Append($"Поверхностная копия объекта после изменения:\n{rectangleShallow.GetTest()}\n");
+            result.Append($"Глубокая копия объекта после изменения:\n{rectangleClone.GetTest()}\n");
+            result.Append("\nИзменённые атрибуты содержат ссылочные типы, поэтому поведение некорректно.");
             
             return result.ToString();
         }
