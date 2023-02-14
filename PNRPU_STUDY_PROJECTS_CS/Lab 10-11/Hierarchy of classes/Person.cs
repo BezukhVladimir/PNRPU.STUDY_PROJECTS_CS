@@ -9,12 +9,12 @@ public class Person : IRandomInit, IComparable, ICloneable
     private string? _surname;
     private int _age;
     
-    public string? Name    { get => _name;    private set => _name = value; }
-    public string? Surname { get => _surname; private set => _surname = value; }
+    public string? Name    { get => _name;    set => _name = value; }
+    public string? Surname { get => _surname; set => _surname = value; }
     public int Age
     {
         get => _age;
-        private set => _age = (value > 0) ? value : 0;
+        set => _age = (value > 0) ? value : 0;
     }
 
     public Person()
@@ -38,8 +38,8 @@ public class Person : IRandomInit, IComparable, ICloneable
         if (obj is Person person)
         {
             result = (_name == person.Name)
-                  && (_surname == person.Surname)
-                  && (_age == person.Age);
+                      && (_surname == person.Surname)
+                      && (_age == person.Age);
         }
 
         return result;
@@ -66,7 +66,7 @@ public class Person : IRandomInit, IComparable, ICloneable
 
         _name    = names[random.Next(names.Length)];
         _surname = surnames[random.Next(surnames.Length)];
-        _age     = random.Next(18, 65);
+        _age     = random.Next(18, 65000);
     }
 
     public void ChangeName(string name) => _name = name;

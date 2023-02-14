@@ -148,7 +148,7 @@ namespace Lab10
                 result.Append('\n');
             }
 
-            result.Append("\nПерсоны старше 30 лет:\n");
+            result.Append("\nЛюди старше 30 лет:\n");
             var personsOlderThan30 = GetPersonsOlderThan(persons, 30);
             foreach (var person in personsOlderThan30)
             {
@@ -211,19 +211,19 @@ namespace Lab10
             result.Append($"Изначальный объект:\n{person.GetInfoVirtual()}\n");
             result.Append($"Поверхностная копия объекта после изменения:\n{personShallow.GetInfoVirtual()}\n");
             result.Append($"Глубокая копия объекта после изменения:\n{personClone.GetInfoVirtual()}\n");
-            result.Append("\nИзменённые атрибуты не содержат ссылок на другие объекты, поэтому оба способа копирования сработали корректно.");
+            result.Append("\nИзменённые атрибуты не содержат ссылок на другие объекты, поэтому оба способа копирования сработали корректно.\n");
 
             Rectangle rectangle = new();
-            Rectangle rectangleShallow = (Rectangle)rectangle.ShallowCopy();
+            Rectangle rectangleShallow = rectangle.ShallowCopy();
             Rectangle rectangleClone   = (Rectangle)rectangle.Clone();
 
-            result.Append($"\nСравнение способов копирования\nСоздан объект {rectangle.GetType().Name}:\n{rectangle.GetTest()}\n");
+            result.Append($"\nСравнение способов копирования\nСоздан объект {rectangle.GetType().Name} с полем Person:\n{rectangle.GetTest()}\n");
             result.Append($"Поверхностная копия объекта:\n{rectangleShallow.GetTest()}\n");
             result.Append($"Глубокая копия объекта:\n{rectangleClone.GetTest()}\n");
 
             result.Append("\nИзменяю поля test.name на \"Shallow\" и \"Clone\" соответственно\n");
-            rectangleShallow.test.ChangeName("Shallow");
-            rectangleClone.test.ChangeName("Clone");
+            rectangleShallow.ChangeName("Shallow");
+            rectangleClone.ChangeName("Clone");
 
             result.Append($"Изначальный объект:\n{rectangle.GetTest()}\n");
             result.Append($"Поверхностная копия объекта после изменения:\n{rectangleShallow.GetTest()}\n");

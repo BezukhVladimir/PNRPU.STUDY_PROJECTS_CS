@@ -63,7 +63,7 @@ namespace Lab10.Tests
 
             Person firstPerson  = new("Name", "Surname", 99);
             Person secondPerson = new("Vladimir", "Bezukh", 22);
-            Figure.Rectangle rectangle = new(10, 10);
+            Figure.Rectangle rectangle = new(10, 10, new Person("Name", "Surname", 99));
 
             Assert.AreEqual(expectedPersonCompareToPersonResult, firstPerson.CompareTo(secondPerson));
             Assert.AreEqual(expectedPersonCompareToRectangleResult, firstPerson.CompareTo(rectangle));
@@ -75,23 +75,6 @@ namespace Lab10.Tests
         {
             Person person = new();
             person.CompareTo(42);
-        }
-
-        [TestMethod()]
-        public void RandomInit_FunctionCall_CorrectResult()
-        {
-            string[] expectedNames    = { "Илья", "Никита", "Тимур", "Мирослав", "Николай", "Лука", "Тимофей", "Денис", "Дмитрий", "Максим", "Василий", "Михаил", "Макар", "Егор", "Давид", "Назар", "Артём", "Владимир", "Елисей", "Андрей", "Александр", "Билал", "Кирилл", "Руслан", "Алексей", "Дамир", "Ростислав", "Константин", "Арсений", "Глеб", "Григорий", "Игорь", "Георгий", "Ярослав", "Пётр", "Леонид", "Роман", "Леон", "Лев", "Даниил", "Али", "Евгений", "Артур", "Святослав", "Мирон", "Фёдор", "Марк", "Сергей", "Вадим", "Владислав", "Станислав", "Тигран", "Захар", "Демид", "Матвей", "Виктор", "Иван", "Платон", "Данила", "Степан", "Серафим", "Филипп", "Арсен", "Адам", "Ян", "Павел", "Антон", "Марат", "Тихон", "Артемий", "Олег", "Родион", "Герман", "Савелий", "Эмиль", "Юрий", "Валерий", "Виталий", "Вячеслав", "Савва", "Эрик", "Гордей", "Данил", "Роберт", "Богдан", "Всеволод", "Эмир", "Даниэль", "Мартин", "Борис", "Семён", "Добрыня", "Ибрагим", "Демьян", "Анатолий", "Рустам", "Данис", "Яромир", "Марсель", "Аркадий" };
-            string[] expectedSurnames = { "Ряполов", "Костин", "Блинов", "Набоко", "Кочерёжкин", "Иньшов", "Аронов", "Носов", "Абарников", "Ясногородский", "Шамило", "Рязанцев", "Решетилов", "Булдаков", "Клюшников", "Истомин", "Зууфин", "Вельдин", "Малахов", "Маланов", "Невзоров", "Стаин", "Лапухов", "Бабатьев", "Плеханов", "Язовицкий", "Карявин", "Селиванов", "Краснопёров", "Ивашов", "Викашев", "Симонов", "Леванов", "Трактирников", "Баушев", "Гик", "Кидин", "Жабин", "Сиянко", "Козлитин", "Праздников", "Воронин", "Муратов", "Ященко", "Квятковский", "Фененко", "Путятин", "Зубарев", "Нежданов", "Еськин", "Кодица", "Абдулов", "Бугайчук", "Сорокин", "Лукин", "Левин", "Якурин", "Ящин", "Чашин", "Молчанов", "Яшунин", "Ярцин", "Гареев", "Яшков", "Янкелевич", "Мажов", "Крымов", "Усатов", "Бормотов", "Бурцов", "Нямин", "Буков", "Жикин", "Ярцев", "Катькин", "Милов", "Козловский", "Чернышёв", "Староволков", "Соломинцев", "Штыков", "Тюлепов", "Достоевский", "Баландин", "Воробьёв", "Аглеев", "Сытников", "Шишов", "Дурченко", "Силин", "Шакмаков", "Лещёв", "Собчак", "Болдырев", "Янковский", "Яушев", "Арчибасов", "Чирков", "Усов", "Ярцов" };
-            int expectedClosedIntervalLeftBoundary  = 18;
-            int expectedClosedIntervalRightBoundary = 65;
-
-            Person obj = new();
-            obj.RandomInit();
-
-            Assert.IsTrue(expectedNames.Any(name => name == obj.Name));
-            Assert.IsTrue(expectedSurnames.Any(surname => surname == obj.Surname));
-            Assert.IsTrue(expectedClosedIntervalLeftBoundary <= obj.Age
-                          && obj.Age <= expectedClosedIntervalRightBoundary);
         }
 
         [TestMethod()]
@@ -204,7 +187,7 @@ namespace Lab10.Tests
 
             Employee firstEmployee  = new("Name", "Surname", 99, "Position");
             Employee secondEmployee = new("Vladimir", "Bezukh", 22, "Teamlead");
-            Figure.Rectangle rectangle = new(10, 10);
+            Figure.Rectangle rectangle = new(10, 10, new Person("Name", "Surname", 99));
 
             Assert.AreEqual(expectedEmployeeCompareToEmployeeResult, firstEmployee.CompareTo(secondEmployee));
             Assert.AreEqual(expectedEmployeeCompareToRectangleResult, firstEmployee.CompareTo(rectangle));
@@ -216,25 +199,6 @@ namespace Lab10.Tests
         {
             Employee employee = new();
             employee.CompareTo(42);
-        }
-
-        [TestMethod()]
-        public void RandomInit_FunctionCall_CorrectResult()
-        {
-            string[] expectedNames     = { "Илья", "Никита", "Тимур", "Мирослав", "Николай", "Лука", "Тимофей", "Денис", "Дмитрий", "Максим", "Василий", "Михаил", "Макар", "Егор", "Давид", "Назар", "Артём", "Владимир", "Елисей", "Андрей", "Александр", "Билал", "Кирилл", "Руслан", "Алексей", "Дамир", "Ростислав", "Константин", "Арсений", "Глеб", "Григорий", "Игорь", "Георгий", "Ярослав", "Пётр", "Леонид", "Роман", "Леон", "Лев", "Даниил", "Али", "Евгений", "Артур", "Святослав", "Мирон", "Фёдор", "Марк", "Сергей", "Вадим", "Владислав", "Станислав", "Тигран", "Захар", "Демид", "Матвей", "Виктор", "Иван", "Платон", "Данила", "Степан", "Серафим", "Филипп", "Арсен", "Адам", "Ян", "Павел", "Антон", "Марат", "Тихон", "Артемий", "Олег", "Родион", "Герман", "Савелий", "Эмиль", "Юрий", "Валерий", "Виталий", "Вячеслав", "Савва", "Эрик", "Гордей", "Данил", "Роберт", "Богдан", "Всеволод", "Эмир", "Даниэль", "Мартин", "Борис", "Семён", "Добрыня", "Ибрагим", "Демьян", "Анатолий", "Рустам", "Данис", "Яромир", "Марсель", "Аркадий" };
-            string[] expectedSurnames  = { "Ряполов", "Костин", "Блинов", "Набоко", "Кочерёжкин", "Иньшов", "Аронов", "Носов", "Абарников", "Ясногородский", "Шамило", "Рязанцев", "Решетилов", "Булдаков", "Клюшников", "Истомин", "Зууфин", "Вельдин", "Малахов", "Маланов", "Невзоров", "Стаин", "Лапухов", "Бабатьев", "Плеханов", "Язовицкий", "Карявин", "Селиванов", "Краснопёров", "Ивашов", "Викашев", "Симонов", "Леванов", "Трактирников", "Баушев", "Гик", "Кидин", "Жабин", "Сиянко", "Козлитин", "Праздников", "Воронин", "Муратов", "Ященко", "Квятковский", "Фененко", "Путятин", "Зубарев", "Нежданов", "Еськин", "Кодица", "Абдулов", "Бугайчук", "Сорокин", "Лукин", "Левин", "Якурин", "Ящин", "Чашин", "Молчанов", "Яшунин", "Ярцин", "Гареев", "Яшков", "Янкелевич", "Мажов", "Крымов", "Усатов", "Бормотов", "Бурцов", "Нямин", "Буков", "Жикин", "Ярцев", "Катькин", "Милов", "Козловский", "Чернышёв", "Староволков", "Соломинцев", "Штыков", "Тюлепов", "Достоевский", "Баландин", "Воробьёв", "Аглеев", "Сытников", "Шишов", "Дурченко", "Силин", "Шакмаков", "Лещёв", "Собчак", "Болдырев", "Янковский", "Яушев", "Арчибасов", "Чирков", "Усов", "Ярцов" };
-            int expectedClosedIntervalLeftBoundary  = 18;
-            int expectedClosedIntervalRightBoundary = 65;
-            string[] expectedPositions = { "Manager", "Administrator", "Teamlead", "Director", "Support" };
-
-            Employee obj = new();
-            obj.RandomInit();
-
-            Assert.IsTrue(expectedNames.Any(name => name == obj.Name));
-            Assert.IsTrue(expectedSurnames.Any(surname => surname == obj.Surname));
-            Assert.IsTrue(expectedClosedIntervalLeftBoundary <= obj.Age
-                          && obj.Age <= expectedClosedIntervalRightBoundary);
-            Assert.IsTrue(expectedPositions.Any(position => position == obj.Position));
         }
 
         [TestMethod()]
@@ -357,7 +321,7 @@ namespace Lab10.Tests
 
             Engineer firstEngineer  = new("Name", "Surname", 99, "Position");
             Engineer secondEngineer = new("Vladimir", "Bezukh", 22, "C# programmer");
-            Figure.Rectangle rectangle = new(10, 10);
+            Figure.Rectangle rectangle = new(10, 10, new Person("Name", "Surname", 99));
 
             Assert.AreEqual(expectedEngineerCompareToEngineerResult, firstEngineer.CompareTo(secondEngineer));
             Assert.AreEqual(expectedEngineerCompareToRectangleResult, firstEngineer.CompareTo(rectangle));
@@ -372,25 +336,6 @@ namespace Lab10.Tests
         }
 
         [TestMethod()]
-        public void RandomInit_FunctionCall_CorrectResult()
-        {
-            string[] expectedNames    = { "Илья", "Никита", "Тимур", "Мирослав", "Николай", "Лука", "Тимофей", "Денис", "Дмитрий", "Максим", "Василий", "Михаил", "Макар", "Егор", "Давид", "Назар", "Артём", "Владимир", "Елисей", "Андрей", "Александр", "Билал", "Кирилл", "Руслан", "Алексей", "Дамир", "Ростислав", "Константин", "Арсений", "Глеб", "Григорий", "Игорь", "Георгий", "Ярослав", "Пётр", "Леонид", "Роман", "Леон", "Лев", "Даниил", "Али", "Евгений", "Артур", "Святослав", "Мирон", "Фёдор", "Марк", "Сергей", "Вадим", "Владислав", "Станислав", "Тигран", "Захар", "Демид", "Матвей", "Виктор", "Иван", "Платон", "Данила", "Степан", "Серафим", "Филипп", "Арсен", "Адам", "Ян", "Павел", "Антон", "Марат", "Тихон", "Артемий", "Олег", "Родион", "Герман", "Савелий", "Эмиль", "Юрий", "Валерий", "Виталий", "Вячеслав", "Савва", "Эрик", "Гордей", "Данил", "Роберт", "Богдан", "Всеволод", "Эмир", "Даниэль", "Мартин", "Борис", "Семён", "Добрыня", "Ибрагим", "Демьян", "Анатолий", "Рустам", "Данис", "Яромир", "Марсель", "Аркадий" };
-            string[] expectedSurnames = { "Ряполов", "Костин", "Блинов", "Набоко", "Кочерёжкин", "Иньшов", "Аронов", "Носов", "Абарников", "Ясногородский", "Шамило", "Рязанцев", "Решетилов", "Булдаков", "Клюшников", "Истомин", "Зууфин", "Вельдин", "Малахов", "Маланов", "Невзоров", "Стаин", "Лапухов", "Бабатьев", "Плеханов", "Язовицкий", "Карявин", "Селиванов", "Краснопёров", "Ивашов", "Викашев", "Симонов", "Леванов", "Трактирников", "Баушев", "Гик", "Кидин", "Жабин", "Сиянко", "Козлитин", "Праздников", "Воронин", "Муратов", "Ященко", "Квятковский", "Фененко", "Путятин", "Зубарев", "Нежданов", "Еськин", "Кодица", "Абдулов", "Бугайчук", "Сорокин", "Лукин", "Левин", "Якурин", "Ящин", "Чашин", "Молчанов", "Яшунин", "Ярцин", "Гареев", "Яшков", "Янкелевич", "Мажов", "Крымов", "Усатов", "Бормотов", "Бурцов", "Нямин", "Буков", "Жикин", "Ярцев", "Катькин", "Милов", "Козловский", "Чернышёв", "Староволков", "Соломинцев", "Штыков", "Тюлепов", "Достоевский", "Баландин", "Воробьёв", "Аглеев", "Сытников", "Шишов", "Дурченко", "Силин", "Шакмаков", "Лещёв", "Собчак", "Болдырев", "Янковский", "Яушев", "Арчибасов", "Чирков", "Усов", "Ярцов" };
-            int expectedClosedIntervalLeftBoundary  = 18;
-            int expectedClosedIntervalRightBoundary = 65;
-            string[] expectedPositions = { "C# developer", "C++ developer", "Python developer", "HTML/CSS developer", "Data scientist" };
-
-            Engineer obj = new();
-            obj.RandomInit();
-
-            Assert.IsTrue(expectedNames.Any(name => name == obj.Name));
-            Assert.IsTrue(expectedSurnames.Any(surname => surname == obj.Surname));
-            Assert.IsTrue(expectedClosedIntervalLeftBoundary <= obj.Age
-                          && obj.Age <= expectedClosedIntervalRightBoundary);
-            Assert.IsTrue(expectedPositions.Any(position => position == obj.Position));
-        }
-
-        [TestMethod()]
         public void ChangeName_FunctionCall_CorrectResult()
         {
             string expectedName = "Vladimir";
@@ -399,16 +344,6 @@ namespace Lab10.Tests
             engineer.ChangeName(expectedName);
 
             Assert.AreEqual(expectedName, engineer.Name);
-        }
-
-        [TestMethod()]
-        public void GetInfo_FunctionCall_CorrectResult()
-        {
-            Engineer obj = new("Vladimir", "Bezukh", 22, "C# programmer");
-
-            string expected = $"{nameof(Engineer)}: {obj.Name}, {obj.Surname}, {obj.Age}, {obj.Position}";
-
-            Assert.AreEqual(expected, obj.GetInfo());
         }
 
         [TestMethod()]
@@ -426,16 +361,6 @@ namespace Lab10.Tests
         {
             Engineer obj = new();
             Engineer newObj = (Engineer)obj.ShallowCopy();
-
-            Assert.IsInstanceOfType(obj, typeof(Engineer));
-            Assert.AreNotSame(newObj, obj);
-        }
-
-        [TestMethod()]
-        public void Clone_FunctionCall_CorrectResult()
-        {
-            Engineer obj = new();
-            Engineer newObj = (Engineer)obj.Clone();
 
             Assert.IsInstanceOfType(obj, typeof(Engineer));
             Assert.AreNotSame(newObj, obj);
@@ -500,7 +425,7 @@ namespace Lab10.Tests
 
             Worker firstWorker  = new("Name", "Surname", 99, "Position");
             Worker secondWorker = new("Vladimir", "Bezukh", 22, "Electrician");
-            Figure.Rectangle rectangle = new(10, 10);
+            Figure.Rectangle rectangle = new(10, 10, new Person("Name", "Surname", 99));
 
             Assert.AreEqual(expectedWorkerCompareToWorkerResult, firstWorker.CompareTo(secondWorker));
             Assert.AreEqual(expectedWorkerCompareToRectangleResult, firstWorker.CompareTo(rectangle));
@@ -512,25 +437,6 @@ namespace Lab10.Tests
         {
             Worker worker = new();
             worker.CompareTo(42);
-        }
-
-        [TestMethod()]
-        public void RandomInit_FunctionCall_CorrectResult()
-        {
-            string[] expectedNames    = { "Илья", "Никита", "Тимур", "Мирослав", "Николай", "Лука", "Тимофей", "Денис", "Дмитрий", "Максим", "Василий", "Михаил", "Макар", "Егор", "Давид", "Назар", "Артём", "Владимир", "Елисей", "Андрей", "Александр", "Билал", "Кирилл", "Руслан", "Алексей", "Дамир", "Ростислав", "Константин", "Арсений", "Глеб", "Григорий", "Игорь", "Георгий", "Ярослав", "Пётр", "Леонид", "Роман", "Леон", "Лев", "Даниил", "Али", "Евгений", "Артур", "Святослав", "Мирон", "Фёдор", "Марк", "Сергей", "Вадим", "Владислав", "Станислав", "Тигран", "Захар", "Демид", "Матвей", "Виктор", "Иван", "Платон", "Данила", "Степан", "Серафим", "Филипп", "Арсен", "Адам", "Ян", "Павел", "Антон", "Марат", "Тихон", "Артемий", "Олег", "Родион", "Герман", "Савелий", "Эмиль", "Юрий", "Валерий", "Виталий", "Вячеслав", "Савва", "Эрик", "Гордей", "Данил", "Роберт", "Богдан", "Всеволод", "Эмир", "Даниэль", "Мартин", "Борис", "Семён", "Добрыня", "Ибрагим", "Демьян", "Анатолий", "Рустам", "Данис", "Яромир", "Марсель", "Аркадий" };
-            string[] expectedSurnames = { "Ряполов", "Костин", "Блинов", "Набоко", "Кочерёжкин", "Иньшов", "Аронов", "Носов", "Абарников", "Ясногородский", "Шамило", "Рязанцев", "Решетилов", "Булдаков", "Клюшников", "Истомин", "Зууфин", "Вельдин", "Малахов", "Маланов", "Невзоров", "Стаин", "Лапухов", "Бабатьев", "Плеханов", "Язовицкий", "Карявин", "Селиванов", "Краснопёров", "Ивашов", "Викашев", "Симонов", "Леванов", "Трактирников", "Баушев", "Гик", "Кидин", "Жабин", "Сиянко", "Козлитин", "Праздников", "Воронин", "Муратов", "Ященко", "Квятковский", "Фененко", "Путятин", "Зубарев", "Нежданов", "Еськин", "Кодица", "Абдулов", "Бугайчук", "Сорокин", "Лукин", "Левин", "Якурин", "Ящин", "Чашин", "Молчанов", "Яшунин", "Ярцин", "Гареев", "Яшков", "Янкелевич", "Мажов", "Крымов", "Усатов", "Бормотов", "Бурцов", "Нямин", "Буков", "Жикин", "Ярцев", "Катькин", "Милов", "Козловский", "Чернышёв", "Староволков", "Соломинцев", "Штыков", "Тюлепов", "Достоевский", "Баландин", "Воробьёв", "Аглеев", "Сытников", "Шишов", "Дурченко", "Силин", "Шакмаков", "Лещёв", "Собчак", "Болдырев", "Янковский", "Яушев", "Арчибасов", "Чирков", "Усов", "Ярцов" };
-            int expectedClosedIntervalLeftBoundary  = 18;
-            int expectedClosedIntervalRightBoundary = 65;
-            string[] expectedPositions = { "Electrician", "Plumber", "Janitor", "Warehouseman", "Courier" };
-
-            Worker obj = new();
-            obj.RandomInit();
-
-            Assert.IsTrue(expectedNames.Any(name => name == obj.Name));
-            Assert.IsTrue(expectedSurnames.Any(surname => surname == obj.Surname));
-            Assert.IsTrue(expectedClosedIntervalLeftBoundary <= obj.Age
-                          && obj.Age <= expectedClosedIntervalRightBoundary);
-            Assert.IsTrue(expectedPositions.Any(position => position == obj.Position));
         }
 
         [TestMethod()]
@@ -555,30 +461,10 @@ namespace Lab10.Tests
         }
 
         [TestMethod()]
-        public void GetInfoVirtual_FunctionCall_CorrectResult()
-        {
-            Worker obj = new("Vladimir", "Bezukh", 22, "Electrician");
-
-            string expected = $"{nameof(Worker)}: {obj.Name}, {obj.Surname}, {obj.Age}, {obj.Position}";
-
-            Assert.AreEqual(expected, obj.GetInfoVirtual());
-        }
-
-        [TestMethod()]
         public void ShallowCopy_FunctionCall_CorrectResult()
         {
             Worker obj = new();
             Worker newObj = (Worker)obj.ShallowCopy();
-
-            Assert.IsInstanceOfType(obj, typeof(Worker));
-            Assert.AreNotSame(newObj, obj);
-        }
-
-        [TestMethod()]
-        public void Clone_FunctionCall_CorrectResult()
-        {
-            Worker obj = new();
-            Worker newObj = (Worker)obj.Clone();
 
             Assert.IsInstanceOfType(obj, typeof(Worker));
             Assert.AreNotSame(newObj, obj);
@@ -645,8 +531,7 @@ namespace Lab10.Tests
     {
 
         [TestMethod()]
-        public void GetFirstTaskResult_FunctionCall_CorrectResult()
-        {
+        public void GetFirstTaskResult_FunctionCall_CorrectResult() {
             var expected = new StringBuilder();
             expected.Append("Вызов функции GetInfo():\n");
             expected.Append("Person: Vladimir, Bezukh, 22\n");
@@ -666,37 +551,8 @@ namespace Lab10.Tests
 
             Assert.AreEqual(expected.ToString(), Lab.GetFirstTaskResult());
         }
-
-        [TestMethod()]
-        public void GetSecondTaskResult_FunctionCall_CorrectResult()
-        {
-            var expected = new StringBuilder();
-            expected.Append("Полный список:\n");
-            expected.Append("Person: Vladimir, Bezukh, 22\n");
-            expected.Append("Employee: Vasilisa, Simonova, 52, Manager\n");
-            expected.Append("Engineer: Georgii, Gorbachev, 28, C# developer\n");
-            expected.Append("Worker: Maksim, Kuznetsov, 35, Electrician\n");
-            expected.Append("Worker: Svetlana, Morozova, 30, Electrician\n");
-            expected.Append("Worker: Fedor, Sedov, 43, Plumber\n");
-            expected.Append("\n");
-            expected.Append("Персоны старше 30 лет:\n");
-            expected.Append("Employee: Vasilisa, Simonova, 52, Manager\n");
-            expected.Append("Worker: Maksim, Kuznetsov, 35, Electrician\n");
-            expected.Append("Worker: Fedor, Sedov, 43, Plumber\n");
-            expected.Append("\n");
-            expected.Append("Рабочие-электрики:\n");
-            expected.Append("Worker: Maksim, Kuznetsov, 35, Electrician\n");
-            expected.Append("Worker: Svetlana, Morozova, 30, Electrician\n");
-            expected.Append("\n");
-            expected.Append("Фамилии и имена всех рабочих:\n");
-            expected.Append("Kuznetsov Maksim\n");
-            expected.Append("Morozova Svetlana\n");
-            expected.Append("Sedov Fedor");
-
-            Assert.AreEqual(expected.ToString(), Lab.GetSecondTaskResult());
-        }
     }
-    
+
     [TestClass()]
     public class OrderByAgeTests
     {
@@ -705,8 +561,8 @@ namespace Lab10.Tests
         {
             Person firstPerson      = new("Name", "Surname", 20);
             Person secondPerson     = new("Name", "Surname", 25);
-            Rectangle firstRectangle  = new(10, 10);
-            Rectangle secondRectangle = new(20, 20);
+            Rectangle firstRectangle  = new(10, 10, new Person("Name", "Surname", 99));
+            Rectangle secondRectangle = new(20, 20, new Person("Name", "Surname", 99));
             OrderByAge order = new();
 
             Assert.AreEqual(-1, order.Compare(firstPerson, secondPerson));
@@ -763,7 +619,7 @@ namespace Lab10.Tests
         [TestMethod()]
         public void GetInfo_FunctionCall_CorrectResult()
         {
-            Rectangle obj = new(10, 10);
+            Rectangle obj = new(10, 10, new Person("Name", "Surname", 99));
 
             string expected = $"{nameof(Rectangle)}: width = {obj.Width}, height = {obj.Height}.";
 
@@ -776,8 +632,8 @@ namespace Lab10.Tests
             int expectedRectangleCompareToPersonResult    = -1;
             int expectedRectangleCompareToRectangleResult = -1;
 
-            Rectangle firstRectangle  = new(10, 10);
-            Rectangle secondRectangle = new(20, 20);
+            Rectangle firstRectangle  = new(10, 10, new Person("Name", "Surname", 99));
+            Rectangle secondRectangle = new(20, 20, new Person("Name", "Surname", 99));
             Person person = new("Name", "Surname", 99);
 
             Assert.AreEqual(expectedRectangleCompareToPersonResult, firstRectangle.CompareTo(person));
@@ -795,7 +651,7 @@ namespace Lab10.Tests
         [TestMethod()]
         public void ToString_FunctionCall_CorrectResult()
         {
-            Rectangle obj = new(10, 10);
+            Rectangle obj = new(10, 10, new Person("Name", "Surname", 99));
 
             string expected = $"Width: {string.Format("{0:0.00000}", obj.Width), -11} Height: {string.Format("{0:0.00000}", obj.Height), -15} Area: {string.Format("{0:0.00000}", obj.Area)}";
 

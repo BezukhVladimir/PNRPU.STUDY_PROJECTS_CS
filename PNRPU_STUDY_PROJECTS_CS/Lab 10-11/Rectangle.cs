@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace Figure;
 
-public class Rectangle : IRandomInit, IComparable
+public class Rectangle : IRandomInit, IComparable, ICloneable
 {
     public Person test;
 
@@ -17,7 +17,7 @@ public class Rectangle : IRandomInit, IComparable
         Width  = 0;
         Height = 0;
         Area   = 0;
-        test   = new ("testname", "testsurname", 0);
+        test = new ("testName", "testSurname", 0);
     }
 
     public Rectangle(in double width, in double height, Person newTest)
@@ -30,7 +30,7 @@ public class Rectangle : IRandomInit, IComparable
 
     public void RandomInit()
     {
-        Random random = new Random();
+        Random random = new();
 
         Width  = random.NextDouble() * 100.0;
         Height = random.NextDouble() * 100.0;
@@ -47,8 +47,9 @@ public class Rectangle : IRandomInit, IComparable
         throw new ArgumentException($"{nameof(obj)} is not a {nameof(Rectangle)}");
     }
 
-    public object ShallowCopy() => MemberwiseClone();
-    public virtual object Clone() => new Rectangle(Width, Height, test);
+    public void ChangeName(string name) => test.Name = name;
+    public Rectangle ShallowCopy() => (Rectangle)MemberwiseClone();
+    public object Clone() => new Rectangle(Width, Height, new Person(test.Name, test.Surname, test.Age));
 
     public string GetInfo() => $"{nameof(Rectangle)}: width = {Width}, height = {Height}.";
     public string GetTest() => $"Test: {test}";

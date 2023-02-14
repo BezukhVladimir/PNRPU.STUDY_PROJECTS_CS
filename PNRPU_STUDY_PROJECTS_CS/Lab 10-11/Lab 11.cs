@@ -41,8 +41,8 @@ namespace Lab11
 
         private static void SolveFirstTask()
         {
-            Console.Write("Введите количество элементов в коллекциях: ");
-            int size = Integer.GetFromRange(0, 300);
+            Console.Write("Введите количество элементов в коллекциях от 0 до 10000: ");
+            int size = Integer.GetFromRange(0, 10000);
             int first = 0;
             int middle = size / 2;
             int last = size - 1;
@@ -57,8 +57,7 @@ namespace Lab11
             Print(found, "1-ый");
 
             Console.WriteLine("Поиск центрального элемента в List<Person>");
-            Person toFind = collections.fcPerson[middle];
-            Console.WriteLine($"t = {GetTimeList(collections.fcPerson, (Person)toFind.Clone(), out found)} мс. ");
+            Console.WriteLine($"t = {GetTimeList(collections.fcPerson, (Person)collections.fcPerson[middle].Clone(), out found)} мс. ");
             Print(found, "Центральный");
 
             Console.WriteLine("Поиск последнего элемента в List<Person>");
@@ -76,7 +75,7 @@ namespace Lab11
             Print(found, "1-ый");
 
             Console.WriteLine("Поиск центрального элемента в List<string>.");
-            Console.WriteLine($"t = {GetTimeList(collections.fcString, toFind.Clone().ToString(), out found)} мс.");
+            Console.WriteLine($"t = {GetTimeList(collections.fcString, collections.fcString[middle], out found)} мс.");
             Print(found, "Центральный");
 
             Console.WriteLine("Поиск последнего элемента в List<string>");
@@ -89,7 +88,7 @@ namespace Lab11
             Console.WriteLine();
 
             // 3 Dictionary<Person, Employee>
-            List<Person> keys = new List<Person>(collections.scPersonEmployee.Keys);
+            List<Person> keys = new(collections.scPersonEmployee.Keys);
             Console.WriteLine("Поиск 1-го ключа в Dictionary<Person, Employee>");
             Console.WriteLine($"t = {GetTimeDictionaryKey(collections.scPersonEmployee, (Person)keys[first].Clone(), out found)} мс.");
             Print(found, "1-ый");
@@ -108,7 +107,7 @@ namespace Lab11
             Console.WriteLine();
 
             // 4 Dictionary<string, Employee>
-            List<string> keysString = new List<string>(collections.scStringEmployee.Keys);
+            List<string> keysString = new(collections.scStringEmployee.Keys);
             Console.WriteLine("Поиск 1-го ключа в Dictionary<string, Employee>");
             Console.WriteLine($"t = {GetTimeDictionaryKey(collections.scStringEmployee, (string)keysString[first].Clone(), out found)} мс.");
             Print(found, "1-ый");
@@ -126,7 +125,7 @@ namespace Lab11
             Print(found, "Отсутствующий");
             Console.WriteLine();
 
-            List<Employee> values = new List<Employee>(collections.scStringEmployee.Values);
+            List<Employee> values = new(collections.scStringEmployee.Values);
             Console.WriteLine("Поиск 1-го элемента в Dictionary<string, Employee>");
             Console.WriteLine($"t = {GetTimeDictionaryValue(collections.scStringEmployee, (Employee)values[first].Clone(), out found)} мс.");
             Print(found, "1-ый");
@@ -147,7 +146,7 @@ namespace Lab11
 
         public static string GetTimeList<T>(List<T> list, T obj, out bool found)
         {
-            Stopwatch w = new Stopwatch();
+            Stopwatch w = new();
             w.Start();
             found = list.Contains(obj);
             w.Stop();
@@ -156,7 +155,7 @@ namespace Lab11
 
         public static string GetTimeDictionaryKey<TKey, TValue>(Dictionary<TKey, TValue> dict, TKey key, out bool found)
         {
-            Stopwatch w = new Stopwatch();
+            Stopwatch w = new();
             w.Start();
             found = dict.ContainsKey(key);
             w.Stop();
@@ -165,7 +164,7 @@ namespace Lab11
 
         public static string GetTimeDictionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict, TValue value, out bool found)
         {
-            Stopwatch w = new Stopwatch();
+            Stopwatch w = new();
             w.Start();
             found = dict.ContainsValue(value);
             w.Stop();

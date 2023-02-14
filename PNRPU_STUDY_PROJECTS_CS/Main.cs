@@ -1,6 +1,4 @@
-﻿//using Lab9;
-//using Lab10;
-using Lab11;
+﻿using Lab12;
 
 namespace EntryPoint
 {
