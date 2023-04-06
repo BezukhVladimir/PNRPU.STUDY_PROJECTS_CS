@@ -1,10 +1,10 @@
-﻿using Lab12;
+﻿using Lab13;
 
 namespace EntryPoint
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Lab.ShowTaskMenu();
             Console.WriteLine("Программа завершена");

@@ -1,0 +1,12 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/PNRPU_STUDY_PROJECTS_CS/bin/Debug/net6.0
+/.vs
+/PNRPU_STUDY_PROJECTS_CS/.vs/PNRPU_STUDY_PROJECTS_CS/v17
+/PNRPU_STUDY_PROJECTS_CS/obj
+/PNRPU_STUDY_PROJECTS_CS_TESTS/bin/Debug/net6.0
+/PNRPU_STUDY_PROJECTS_CS_TESTS/obj/Debug/net6.0
+/PNRPU_STUDY_PROJECTS_CS_TESTS/obj
+/PNRPU_STUDY_PROJECTS_CS.sln.DotSettings.user
