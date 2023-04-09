@@ -66,7 +66,7 @@ public class Person : IRandomInit, IComparable, ICloneable
 
         _name    = names[random.Next(names.Length)];
         _surname = surnames[random.Next(surnames.Length)];
-        _age     = random.Next(18, 65000);
+        _age     = random.Next(18, 65);
     }
 
     public void ChangeName(string name) => _name = name;
