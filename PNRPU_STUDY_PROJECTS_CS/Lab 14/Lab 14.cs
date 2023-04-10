@@ -1,5 +1,4 @@
 ﻿using Staff;
-using System.Linq;
 
 namespace Lab14 {
     public class Lab {
