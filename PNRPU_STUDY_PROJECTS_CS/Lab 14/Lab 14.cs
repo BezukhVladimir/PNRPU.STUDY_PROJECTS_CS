@@ -4,7 +4,7 @@ namespace Lab14 {
     public class Lab {
         public static void ShowTaskMenu() {
             List<Engineer> collection1 = new();
-            List<Person> collection2 = new();
+            List<Worker>   collection2 = new();
 
             for (int i = 0; i < 10; ++i) {
                 Engineer engineer = new();

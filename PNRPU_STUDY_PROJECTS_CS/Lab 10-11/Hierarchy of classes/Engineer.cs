@@ -1,9 +1,12 @@
 ﻿namespace Staff;
 
+[Serializable]
 public class Engineer : Person
 {
     private string? _position;
-    public string? Position { get => _position; private set => _position = value; }
+    public string? Position {
+        get => _position; set => _position = value;
+    }
 
     public Engineer() : base() => _position = "";
 

@@ -3,6 +3,7 @@
 using Figure;
 using IRandom;
 
+[Serializable]
 public class Person : IRandomInit, IComparable, ICloneable
 {
     private string? _name;

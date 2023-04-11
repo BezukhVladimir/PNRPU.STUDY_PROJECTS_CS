@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using System.Xml.Linq;
+﻿namespace Staff;
 
-namespace Staff;
-
+[Serializable]
 public class Employee : Person
 {
     private string? _position;

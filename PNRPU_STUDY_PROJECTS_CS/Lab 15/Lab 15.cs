@@ -1,6 +1,4 @@
-﻿using Staff;
-
-namespace Lab15 {
+﻿namespace Lab15 {
     public class Lab {
         static readonly int MAX = 4;
         static readonly int MAX_THREAD = 4;

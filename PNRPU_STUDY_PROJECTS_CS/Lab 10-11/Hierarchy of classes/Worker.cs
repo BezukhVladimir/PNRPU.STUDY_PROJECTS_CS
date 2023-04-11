@@ -1,7 +1,6 @@
-﻿using System.Xml.Linq;
+﻿namespace Staff;
 
-namespace Staff;
-
+[Serializable]
 public class Worker : Person
 {
     private string? _position;
