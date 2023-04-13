@@ -16,28 +16,30 @@ namespace Lab16 {
                 collection1.Add(engineer);
             }
 
+            string path = "../../../Lab 16/staff";
+
             // Бинарная сериализация
             BinaryFormatter formatter = new BinaryFormatter();
 
             print(collection1, "Исходные данные:");
-            using FileStream writer1 = new("..\\..\\..\\Lab 16\\staff.bin", FileMode.Create);
+            using FileStream writer1 = new(path + ".bin", FileMode.Create);
             formatter.Serialize(writer1, collection1);
             writer1.Close();
 
             List<Engineer> collection2 = new();
-            using FileStream reader1 = new("..\\..\\..\\Lab 16\\staff.bin", FileMode.Open);
+            using FileStream reader1 = new(path + ".bin", FileMode.Open);
             collection2 = (List<Engineer>)formatter.Deserialize(reader1);
             reader1.Close();
             print(collection2, "Бинарная десериализация:");
 
             // JSON сериализация
             string json = JsonSerializer.Serialize(collection1);
-            using StreamWriter writer2 = new("..\\..\\..\\Lab 16\\staff.json");
+            using StreamWriter writer2 = new(path + ".json");
             writer2.Write(json);
             writer2.Close();
 
             collection2.Clear();
-            using StreamReader reader2 = new("..\\..\\..\\Lab 16\\staff.json");
+            using StreamReader reader2 = new(path + ".json");
             json = reader2.ReadToEnd();
             collection2 = JsonSerializer.Deserialize<List<Engineer>>(json);
             reader2.Close();
@@ -45,13 +47,13 @@ namespace Lab16 {
 
             // XML десериализация
             XmlSerializer serializer = new(typeof(List<Engineer>));
-            using StreamWriter writer3 = new("..\\..\\..\\Lab 16\\staff.xml");
+            using StreamWriter writer3 = new(path + ".xml");
             serializer.Serialize(writer3, collection1);
             writer3.Close();
 
             collection2.Clear();
             serializer = new(typeof(List<Engineer>));
-            using StreamReader reader3 = new StreamReader("..\\..\\..\\Lab 16\\staff.xml");
+            using StreamReader reader3 = new StreamReader(path + ".xml");
             collection2 = (List<Engineer>)serializer.Deserialize(reader3);
             reader3.Close();
             print(collection2, "XML десериализация:");
